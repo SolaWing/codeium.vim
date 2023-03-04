@@ -19,13 +19,7 @@ function! codeium#Enabled() abort
     return v:false
   endif
 
-  let codeium_filetypes = s:default_codeium_enabled
-  call extend(codeium_filetypes, get(g:, 'codeium_filetypes', {}))
-  if !get(codeium_filetypes, &filetype, 1)
-    return v:false
-  endif
-
-  return v:true
+  return get(g:codeium_filetypes, &filetype, v:false)
 endfunction
 
 function! codeium#CompletionText() abort
