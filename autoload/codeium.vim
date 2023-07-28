@@ -316,7 +316,8 @@ function! codeium#Complete(...) abort
   let current_bufnr = bufnr('%')
   let loaded_buffers = getbufinfo({'bufloaded':1})
   for buf in loaded_buffers
-    if buf.bufnr != current_bufnr && getbufvar(buf.bufnr, '&filetype') !=# ''
+    if buf.bufnr != current_bufnr && get(g:codeium_filetypes, getbufvar(buf.bufnr, '&filetype'), v:false)
+      " echom "add other_documents for " .. buf.bufnr
       call add(other_documents, codeium#doc#GetDocument(buf.bufnr, 1, 1))
     endif
   endfor
